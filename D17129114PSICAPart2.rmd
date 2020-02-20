@@ -1,6 +1,6 @@
 ---
 title: "Part II : Examining the effective factors of hours of sleep/ weeknight"
-author: "Tijo Thomas (D17129114)"
+author: "Tijo Thomas"
 date: "Multiple Regression Model"
 output:
   pdf_document: default
@@ -39,7 +39,7 @@ As part of evaluating the dataset, random missing values were identified .The mo
 The necessary normality check was assessed among variables by finding the respective skew and kurtosis value.Standardised scores for skewness and kurtosis between   -2 and +2 are considered acceptable in order to prove normal univariate distribution.   
 *George, D., & Mallery, M. (2010). SPSS for Windows Step by Step: A Simple Guide and Reference*
 
-Along with the normality, the impact of outliers was also verified based on conventions of 0.05 level if 95% of your data is within +/- 1.96 when converted to standardised scores and if the sample size is larger than 80 cases, a case is an outlier if its standard score is ±3.29 or beyond.
+Along with the normality, the impact of outliers was also verified based on conventions of 0.05 level if 95% of your data is within +/- 1.96 when converted to standardised scores and if the sample size is larger than 80 cases, a case is an outlier if its standard score is Â±3.29 or beyond.
 
 Before regression, evidence of relationship/differential effect ie. correlation/ difference was investigated between predictors and outcome as well as between predictors using appropriate test.*An alpha level 0.05 was adopted and Cohen's conventions on effect size were adopted for all statistical tests.* (The results are explained in Materials and Procedure section below.)
 
@@ -119,7 +119,7 @@ panderOptions('table.split.table', Inf)
 set.caption("Checking outliers for Normality of hourwend")
 my.data <- " 
 
-  Variables    | No.Observations    | No. ±1.96      | % ±1.96  | No. ±3.29  | % ±3.29    
+  Variables    | No.Observations    | No. Â±1.96      | % Â±1.96  | No. Â±3.29  | % Â±3.29    
   hourwend     | 271                | 14             | 5.1%     | 2          | 0.07%            
   "
 
@@ -132,11 +132,11 @@ pander(df, style = 'rmarkdown')
 
 ```
 
-As an additional test for checking normality of hourwend ,No. of outliers was checked  to find the percentage of observations that fall outside ±1.96 and ±3.29 standard deviations from the mean. Results in Table 2 above indicate that less than 5% of observations fall outside this range meaning that *hourwend* variable can be considered as normal for the purpose of this study.
+As an additional test for checking normality of hourwend ,No. of outliers was checked  to find the percentage of observations that fall outside Â±1.96 and Â±3.29 standard deviations from the mean. Results in Table 2 above indicate that less than 5% of observations fall outside this range meaning that *hourwend* variable can be considered as normal for the purpose of this study.
 
 ##Procedure
 
-Hypothesis tests comparing the relationship between *hourwend* and the response variable *hourwnit* was previously been carried out in Part I of the assignment. But as part of improvement, In CA part II I have considered the % of outliers value in between ±1.96 and ±3.29 of hourwend (Table.2) and decided hourwend as normal. Hence, suitable pearson test was used to determine the relationship of both variables. As part of result , a positive significant correlation was observed between hourwend and hourwnit with strong correlation coefficient.
+Hypothesis tests comparing the relationship between *hourwend* and the response variable *hourwnit* was previously been carried out in Part I of the assignment. But as part of improvement, In CA part II I have considered the % of outliers value in between Â±1.96 and Â±3.29 of hourwend (Table.2) and decided hourwend as normal. Hence, suitable pearson test was used to determine the relationship of both variables. As part of result , a positive significant correlation was observed between hourwend and hourwnit with strong correlation coefficient.
 
 New tests of significance for the additional variables versus the response variable *hourwnit* was carried out as follows:  
 **An alpha level 0.05 was adopted and Cohen's conventions on effect size were adopted for all statistical tests.**
@@ -165,7 +165,7 @@ pander(df, style = 'rmarkdown')
 ```  
 
 
-As per standard Cohen's effect size convention (±.1 = small/weak, ±.3 = medium/moderate, ±.5 = large/strong ) we could observe the effect size indicating small to medium effect between *age* , *hourwnit* and strong effect between *hourwend* , *hourwnit* and acceptable p- values indicating the existence of correlation between respective variables of *age* and *hourwend* with the response variable *hourwnit*.  
+As per standard Cohen's effect size convention (Â±.1 = small/weak, Â±.3 = medium/moderate, Â±.5 = large/strong ) we could observe the effect size indicating small to medium effect between *age* , *hourwnit* and strong effect between *hourwend* , *hourwnit* and acceptable p- values indicating the existence of correlation between respective variables of *age* and *hourwend* with the response variable *hourwnit*.  
 
 As part of check for collinearity among independent predictor variables, correlation test between *age* , *hourwend* was conducted and as per result, correlation coefficient less than 0.8 determined the absence of collinearity between these independent variables.
 

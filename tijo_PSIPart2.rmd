@@ -2,7 +2,7 @@
 title: "Part II : Examining the effective factors of hours of sleep/ weeknight"
 author: "Tijo Thomas"
 date: "Multiple Regression Model"
-output:
+output: 
   pdf_document: default
   html_document: default
 ---

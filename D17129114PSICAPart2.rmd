@@ -1,0 +1,318 @@
+---
+title: "Part II : Examining the effective factors of hours of sleep/ weeknight"
+author: "Tijo Thomas (D17129114)"
+date: "Multiple Regression Model"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction  
+
+In today's fast-paced world sleep is not only a biological necessity but also a physiological drive, though, a good night's sleep is often the primary thing to go. The impacts of inadequate sleep are more than mere annoyances: they affect our mood as well as the performance in daily life. The analysis undergone in this part of assignment is concerned with finding the most significant parameters to response variable and generating a hypothetical model of the relationship between the outcome variable and  several predictos.
+
+The initial exploration in Part I of this assignment was focused on identifying factors, which influence problems in sleep and finding those related paramaters that impact the average hours of sleep during week night. The initial analysis found that factors such as age, hourwend and trubslp all had a small but significant contribution toward a average hours of sleep/ weeknight and sleep problems. This paper will continue and build upon that analysis identifying additional factors, which contribute towards finding those predictors which are most significant and then combining all investigated factors to build a multiple linear regression model capable of predicting average hours of sleep/ weeknight*(hourwnit)*.
+
+**Research Question:** *Does age,hours of sleep/weekend influence hours of sleep/weeknight and Can various sleep paramaters like facing trouble in falling asleep,having sleep problems or not and waking up with refreshed feeling be more effective in predicting hours of sleep/ weeknights ?*
+
+Multiple Linear regression was the method used in this analysis of study because of its effectiveness in predictive world. MLR is most efficient method to explain the relationship between one continuous dependent variable and two or more independent variables and also it is efficient enough to identify the strength of the effect /variance that the independent variables have on a dependent variable. MLR has the best ability to determine the relative influence of one or more predictor variables to the criterion value. 
+Its ability to identify outliers, or anomalies makes it more advantageus over other predictive models.
+
+The data set used for this analysis is a real data file condensed from a study conducted to explore the prevalence and impact of sleep problems.The sample consisted of 271 respondents (55% female, 45% male) ranging in age from 18 to 84 years (mean=44yrs).
+
+
+### Hypotheses of the Study  
+
+1. There will be no significant prediction of staff's *Hours sleep/ week nights* by *Age* and *Hours sleep/ week ends*.    
+2. There will be no significant prediction of staff's *Hours sleep/ week nights* by *Age*,*Hours sleep/ week ends*,*Facing trouble in falling asleep*,*Wake up feeling refreshed weekdays* and *having problem with sleep or not*.
+
+###Methodology
+
+The data set used for this analysis is a real data file condensed from a study conducted to explore the prevalence and impact of sleep problems.The sample consisted of 271 respondents (55% female, 45% male) ranging in age from 18 to 84 years (mean=44yrs).
+As part of evaluating the dataset, random missing values were identified .The most commonly practiced approaches in handling missing values are mean substitution and regression based methods-both single imputation techniques. Mean substitution replaces missing values on a variable with the mean value of the observed values. The imputed missing values are contingent upon one and only one variable - the between subjects mean for that variable based on the available data. Mean substitution preserves the mean of a variables distribution. Since dataset was small enough and need of healthy dataset for making hypothetical models was the rationale behind of doing mean substitution as missing value replacement.  
+*Graham, Hohn W. (2009): Missing Data Analysis: Making It Work in the Real World.*
+
+The necessary normality check was assessed among variables by finding the respective skew and kurtosis value.Standardised scores for skewness and kurtosis between   -2 and +2 are considered acceptable in order to prove normal univariate distribution.   
+*George, D., & Mallery, M. (2010). SPSS for Windows Step by Step: A Simple Guide and Reference*
+
+Along with the normality, the impact of outliers was also verified based on conventions of 0.05 level if 95% of your data is within +/- 1.96 when converted to standardised scores and if the sample size is larger than 80 cases, a case is an outlier if its standard score is ±3.29 or beyond.
+
+Before regression, evidence of relationship/differential effect ie. correlation/ difference was investigated between predictors and outcome as well as between predictors using appropriate test.*An alpha level 0.05 was adopted and Cohen's conventions on effect size were adopted for all statistical tests.* (The results are explained in Materials and Procedure section below.)
+
+Before creating models, The original data set was partitioned on 80% to a training dataset (n= 216) and 20% to a test datset (n=
+55). The models were built on the training dataset. As an additional validation Model 2 was run against test dataset of 20% to produce a set of predicted hours of sleep/ weeknight.  
+*Landau, S., & Barthel, S. (2010). Recursive partitioning. International Encyclopedia of Education, 383-389*  
+https://en.wikipedia.org/wiki/Pareto_principle  
+
+####Asumptions and conventions of MLR in this study
+Variable Type:
+In this Multiple Linear regression model, Outcome variable is a continuous variable *(hourwnit)* while other predictors includes continuos as well as categorical.
+
+Non-Zero Variance:
+Variance of predictors was verified and does not have zero variance.
+
+Linearity:
+As a straight forward assumption the relationship in this model, in reality, linear.
+
+Independance:
+All values of the outcome come from a different person in this study.
+
+
+Homoscedasticity/Constant variance:
+For each value of the predictors the variance of the error term was verified and is constant in this study.
+
+Outliers:
+As per the standard convention ,if the minimum value is equal or below -3.29, or the maximum value is equal or above 3.29 then those data were considered as outliers and plotted the density of residuals. 
+Cook's distance for values was evaluated and verified whether the values are greater than one.
+
+Collinearity:
+The concerns of multicollinearity was verified by conventions if the VIF value is greater than 2.5 or the Tolerance is less than 0.4 and made sure there are no cases of multicollinearity.
+
+
+###Materials    
+
+**Hours sleep/ week nights (hourwnit)(n=271,Mean=6.97,Mdn=7.0,SD=1.07)** is a numeric variable which represents the average number of hours of sleep every weeknight.This variable was based on numeric value given by repondants depending on the average hours of sleep during weeknights.
+
+**Age (age)(n=271,Mean= 43.89,Mdn=44.0,SD=12.13)** is a numeric variable which indicates the age in years of respondants.
+
+**Hours sleep/ week ends (hourwend)(n=271,Mean= 7.80,Mdn=8.00,SD=1.33)** is a numeric variable which indicates the average number of hours sleep during weekends. This variable was based on numeric value given repondants depending on their average hours of sleep during weekends.
+
+**Trouble falling asleep (trubslep)(n=271)** is a categorical variable indicating *1(yes, n= 106) and 2(No, n= 165)*whether they are facing trouble in falling asleep. This response was taken based on a question "Do you have trouble falling asleep?" from sleep code questionaire.
+
+**Sleep Problem (problem) (n=271)** is a categorical variable indicating *1(yes, n= 117) and 2(No, n= 154)* whether respondant face problems with sleep or not. This was based on the response from question "Do you feel you have a problem of any sort with your sleep?" in sleep code questionaire.
+
+**Wake up feeling refreshed weekdays (refreshd) (n=271)** is a categorical variable indicating *1(yes, n= 100) and 2(No, n= 171)* the wake up feeling of respondants. This was based on the response from question "Do you usually wake up feeling refreshed? On weekdays?" from sleep code questionaire.  
+
+Each of the numeric variables were standardised in preparation for the multiple regression model build and normality tests of skew and kurtosis were performed. Table 1 highlights the results of Skew and kurtosis for hourwnit,age and anxiety that was found between 2 and -2 indicating normality.
+```{r  vars_interest table-simple,  results='asis' , echo=FALSE}
+library(pander)
+panderOptions('table.split.table', Inf)
+set.caption("Skew and Kurtosis for Numeric Variables")
+my.data <- " 
+
+  Variables    | Skew          | Kurtosis    
+  hourwnit     | -0.410        | 0.699             
+  age          | 0.075         | -0.338               
+  hourwend     | -0.097        | 2.46e+00               
+  "
+
+df <- read.delim(textConnection(my.data),header=FALSE,sep="|",strip.white=TRUE,stringsAsFactors=FALSE)
+names(df) <- unname(as.list(df[1,])) # put headers on
+df <- df[-1,] # remove first row
+row.names(df)<-NULL
+pander(df, style = 'rmarkdown')
+
+```  
+
+As per the above table of skew and kurtosis values of respective numeric variables, we can move further by considering hourwnit, age as normal in this analysis.
+
+
+                                    
+
+```{r  vars_Table2 table-simple,  results='asis' , echo=FALSE}
+library(pander)
+panderOptions('table.split.table', Inf)
+set.caption("Checking outliers for Normality of hourwend")
+my.data <- " 
+
+  Variables    | No.Observations    | No. ±1.96      | % ±1.96  | No. ±3.29  | % ±3.29    
+  hourwend     | 271                | 14             | 5.1%     | 2          | 0.07%            
+  "
+
+df <- read.delim(textConnection(my.data),header=FALSE,sep="|",strip.white=TRUE,stringsAsFactors=FALSE)
+##set.caption("Table 1: Skew and Kurtosis for Numeric Variables")
+names(df) <- unname(as.list(df[1,])) # put headers on
+df <- df[-1,] # remove first row
+row.names(df)<-NULL
+pander(df, style = 'rmarkdown')
+
+```
+
+As an additional test for checking normality of hourwend ,No. of outliers was checked  to find the percentage of observations that fall outside ±1.96 and ±3.29 standard deviations from the mean. Results in Table 2 above indicate that less than 5% of observations fall outside this range meaning that *hourwend* variable can be considered as normal for the purpose of this study.
+
+##Procedure
+
+Hypothesis tests comparing the relationship between *hourwend* and the response variable *hourwnit* was previously been carried out in Part I of the assignment. But as part of improvement, In CA part II I have considered the % of outliers value in between ±1.96 and ±3.29 of hourwend (Table.2) and decided hourwend as normal. Hence, suitable pearson test was used to determine the relationship of both variables. As part of result , a positive significant correlation was observed between hourwend and hourwnit with strong correlation coefficient.
+
+New tests of significance for the additional variables versus the response variable *hourwnit* was carried out as follows:  
+**An alpha level 0.05 was adopted and Cohen's conventions on effect size were adopted for all statistical tests.**
+
+The second test was to compare the relationship between response variable *hourwnit* and numerical variable *age*.Since both variables were normal, Pearson's correlation test was used to determine the relationship.
+
+
+```{r  vars_corr table-simple,  results='asis' , echo=FALSE}
+library(pander)
+panderOptions('table.split.table', Inf)
+set.caption("Correlation Tests")
+my.data <- " 
+
+  Variables    | Degree of Freedom      | r           | p-value    
+  age          | 269                    | -0.186      | < 0.05                       
+  hourwend     | 269                    | 0.598       | < 0.05               
+  "
+
+df <- read.delim(textConnection(my.data),header=FALSE,sep="|",strip.white=TRUE,stringsAsFactors=FALSE)
+##set.caption("Table 1: Skew and Kurtosis for Numeric Variables")
+names(df) <- unname(as.list(df[1,])) # put headers on
+df <- df[-1,] # remove first row
+row.names(df)<-NULL
+pander(df, style = 'rmarkdown')
+
+```  
+
+
+As per standard Cohen's effect size convention (±.1 = small/weak, ±.3 = medium/moderate, ±.5 = large/strong ) we could observe the effect size indicating small to medium effect between *age* , *hourwnit* and strong effect between *hourwend* , *hourwnit* and acceptable p- values indicating the existence of correlation between respective variables of *age* and *hourwend* with the response variable *hourwnit*.  
+
+As part of check for collinearity among independent predictor variables, correlation test between *age* , *hourwend* was conducted and as per result, correlation coefficient less than 0.8 determined the absence of collinearity between these independent variables.
+
+The third test will compare the relationship between the categorical variable *trubslep* and *hourwnit*. T test was used to test the difference between "Yes, Trouble in falling asleep" and "No, Trouble in falling asleep" with respect to *hourwnit*.
+
+The fourth test will compare the relationship between the categorical variable *problem* and *hourwnit*. T test was used to test the difference between "Yes, have problem with sleep" and "No problem with sleep" with respect to *hourwnit*.
+
+The fifth test will compare the relationship between the categorical variable *refreshd* and *hourwnit*. T test was used to test the difference between "Yes, Wake up feeling refreshed weekdays" and "No, wake up feeling refreshed weekdays" with respect to *hourwnit*.    
+
+```{r  vars_corr table3-simple,  results='asis' , echo=FALSE}
+library(pander)
+panderOptions('table.split.table', Inf)
+set.caption("T-Tests for Difference")
+my.data <- " 
+
+  Variables            | Yes     | No     | t           | p-value    | eta square 
+  trubslep 
+           -n          | 106     | 165    | -3.78       | < 0.05     | 0.051 
+           -Mean       | 6.67    | 7.16   |             |            | 
+           -Mdn        | 7       | 7      |             |            |
+           -SD         | 1.07    | 1.03   |             |            |
+  problem  
+           -n          | 117     | 154    | -4.122      | < 0.05     | 0.059
+           -Mean       | 6.68    | 7.2    |             |            | 
+           -Mdn        | 7       | 7      |             |            | 
+           -SD         | 1.08    | 1      |             |            |   
+  refreshd 
+           -n          | 100     | 171    | 2.84        | < 0.05     | 0.029
+           -Mean       | 7.21    | 6.83   |             |            |  
+           -Mdn        | 7       | 7      |             |            | 
+           -SD         | 1.03    | 1.07   |             |            |  
+
+  "
+
+df <- read.delim(textConnection(my.data),header=FALSE,sep="|",strip.white=TRUE,stringsAsFactors=FALSE)
+##set.caption("Table 1: Skew and Kurtosis for Numeric Variables")
+names(df) <- unname(as.list(df[1,])) # put headers on
+df <- df[-1,] # remove first row
+row.names(df)<-NULL
+pander(df, style = 'rmarkdown')
+
+```  
+
+##Results
+As per the above Table 4. T-test for difference between response variable *hourwnit* and respective categorical predicting variables*(trubslp,problem,refreshd)*  we can observe the p values from T - Test of all variables are statistically significant (p< 0.05) and hence effect size plays a major role which allows us to measure magnitude of mean differences. Inorder to find the effect size , Eta squared values was calculated. As per the guidelines of standard eta squared convention on effect size : 0.01 = small, 0.06 = moderate, 0.14 =large was considered to determine the effect.  
+  
+*hourwnit ~ trubslp*  
+An independent-samples t-test was conducted to compare hours of sleep during weeknight with  group of people facing trouble in falling asleep easily and not facing trouble in falling asleep. Significant difference in the scores was determined as per Table 4. and eta square statistic also indicated a moderate effect size of mean differences between the group of people facing trouble in falling asleep easily and group of people not facing trouble to fall asleep.  
+  
+*hourwnit ~ problem*  
+An independent-samples t-test was conducted to compare hours of sleep during weeknight with people who have problem with their sleep and not having problem with their sleep. Significant difference in the scores was determined as per Table 4. and eta square statistic also indicated a moderate effect size of mean differences between the group of people who have problem with their sleep and group of not having problem with their sleep.  
+  
+*hourwnit ~ refreshd*  
+An independent-samples t-test was conducted to compare hours of sleep during weeknight with people who wake up feeling refreshed and not waking up feeling refreshed . Significant difference in the scores was determined as per Table 4. and eta square statistic also indicated a small to moderate effect size of mean differences between the group of people who wake up feeling refreshed and not waking up feeling refreshed . 
+
+
+##Model 1
+
+A multiple linear regression was conducted to predict a person's number of hours of sleep / week nights based on the continuous variables age and hours of sleep/ weekend night. A significant regression equation was found (F(2,216)= 46.59, p= <.001) with an adjusted R2 of 0.298 which means 29.8% of variance found in response variable hourwnit can be explained by predictor variables of age and hourwend.As per the analysis , a person's predicted Hours of sleep/ weeknight is equal to 3.859 - 0.004(age) + 0.418(hourwend) , where age and hourwend are both standardised continuous variables. A person's standardised hours of sleep/ weeknight increases 0.005 standard deviations for each standard deviation increase in age and increases 0.047 standard deviation for each standard deviation increase in Hours of sleep/weekend. In this model hourwend(p <0.001) was most significant predictor of hourwnit.
+
+An analysis of standard residuals was carried out, which showed that the data contained no outliers (Std. Residual Min = -2.526, Std. Residual Max =  2.133) and  none with Cook's distance >1 as outlined in Field (2013). Examinations to see if the data met the assumption of collinearity indicated that multicollinearity was not a concern (age, VIF= 1.09; hourwend, VIF= 1.09) and were within acceptable levels (tolerance >0.4,VIF <2.5 ) as outlined in (Tarling (2008)).The data also meets the assumption of non-zero variances of the predictors. The density plot of standardised residuals indicated that the data contained normally distributed errors, as did the normal Q-Q plot of standardised residuals, which showed all points were close to the line and plotted in Figure 1.
+
+From the above discussed result of Model 1, there is evidence to support rejecting the null hypothesis that  no significant prediction of staff's Hours sleep/ week nights by Age and Hours sleep/ week ends .The significance of model depicts that response variable Hours sleep/ week nights can be predicted using Age and Hours sleep/ weekends.
+
+```{r plotting, echo=FALSE, comment=FALSE, warning=FALSE , message=FALSE , results= 'hide'}
+#To read the dataset
+SleepCode<- read.table("sleep5ED.csv",sep = ',',header = TRUE ,na.strings = c('','NA'))
+View(SleepCode)
+#Setting the column names that to be used in the dataset
+colnames(SleepCode) <- tolower(colnames(SleepCode))
+
+#Handling the missing column values with respective mean column values
+for(i in 1:ncol(SleepCode)){
+  SleepCode[is.na(SleepCode[,i]), i] <- ceiling(mean(SleepCode[,i], na.rm = TRUE))
+}
+
+#SleepCode is the original dataset. 
+#SleepCode_training is the training dataset which is used for regression analysis and model. 
+#sleeptest is the test dataset.
+
+#Splitting dataset into 80% training set and 20% test set
+set.seed(101)
+sample <- sample.int(n = nrow(SleepCode), size = floor(.80*nrow(SleepCode)), replace = F)
+SleepCode_training <- SleepCode[sample, ]
+sleeptest  <- SleepCode[-sample, ]
+View(SleepCode_training)
+
+library(foreign) #To work with SPSS data
+library(lmSupport)#Extra functions for linear model (may require install of nloptr also)
+library(lm.beta)
+library(stargazer)#pretty print regression output
+library(dplyr)
+library(ppcor)
+library(car)
+model1<-lm(SleepCode_training$hourwnit~SleepCode_training$age+SleepCode_training$hourwend)
+p1<-plot(density(resid(model1)),main = "Density plot of the residuals") 
+
+#Create a QQ plotqqPlot(model, main="QQ Plot") #qq plot for studentized resid 
+p2<-leveragePlots(model1) # leverage plots
+library(lattice)
+print(p1, position = c(0, 0, 0.5, 1), more = TRUE)
+print(p2, position = c(0.5, 0, 1, 1))
+
+```
+
+
+
+##Model 2
+A multiple linear regression was conducted to predict a person's number of hours of sleep / week nights based on the continuous variables age and hours of sleep/ weekend night and categorical variables trubslp, problem, refreshd. A significant regression equation was found (F(5,210)= 24.63, p= <.001) with an adjusted R2 of 0.355 which means 35.5% of variance found in response variable hourwnit can be explained by predictor variables of age, hourwend, trubslp, problem and refreshd. As per the analysis , a person's predicted Hours of sleep/ weeknight is equal to 4.212 - 0.010(age) + 0.399(hourwend) - 0.272(trubslp_Yes) + 0.007 (problem_Yes) + 0.445(refreshd_Yes), where age, hourwend are both standardised continuous variables and trubslp_Yes (dummy categorical value of trubslp with Yes as value) ,problem_Yes (dummy categorical value of problem with Yes as value), refreshd_Yes(dummy categorical value of refreshd with Yes as value). A person's standardised hours of sleep/ weeknight increases 0.005 standard deviations for each standard deviation increase in age and increases 0.047 standard deviation for each standard deviation increase in Hours of sleep/weekend.People who had trouble in sleep have hourwnit 0.125 standard deviation higher, people who had sleep problem have hourwnit 0.130 standard deviation higher and people who used to wake up in morning with refreshed feeling have hourwnit 0.131 standard deviation higher. In this model hourwend(p <0.001) and refreshd_Yes (p<0.001) was most significant predictors of hourwnit.
+
+An analysis of standard residuals was carried out, which showed that the data contained no outliers (Std. Residual Min = -2.369, Std. Residual Max =  2.233) and  none with Cook's distance >1 as outlined in Field (2013).Examinations to see if the data met the assumption of collinearity indicated that multicollinearity was not a concern (age, VIF= 1.19; hourwend, VIF= 1.19; trubslp_Yes ,VIF= 1.18; problem_Yes, VIF= 1.31; refreshd_Yes, VIF= 1.25) and were within acceptable levels (tolerance >0.4,VIF <2.5 ) as outlined in (Tarling (2008)).The data also meets the assumption of non-zero variances of the predictors. The density plot of standardised residuals indicated that the data contained normally distributed errors, as did the normal Q-Q plot of standardised residuals, which showed all points were close to the line and plotted in Figure 1.
+
+From the above discussed result of Model 2, there is evidence to support rejecting the null hypothesis that no significant prediction of staff's Hours sleep/ week nights by Age,Hours sleep/ weekends,Facing trouble in falling asleep,Wake up feeling refreshed weekdays and having problem with sleep or not.The significance of model depicts that response variable Hours sleep/ week nights can be predicted using Age,Hours sleep/ weekends,Facing trouble in falling asleep,having problem with sleep or not and Wake up feeling refreshed weekdays.
+
+##Test Data
+The original data set was partitioned on 80% to a training dataset (n= 216) and 20% to a test dataset (n= 55). The models were built on the train dataset. As an additional validation I ran Model 2 against the test dataset to produce a set of predicted hourwnit for each staff. A correlation test of predicted hourwnit variable vs. actual hourwnit variable yielded a significant positive association (r(53) = 0.777, p < .001).
+
+##Conclusion and Discussion
+The aim of this study was to create a predictive multilple linear regression model which is capable of predicting Average Hours of sleep/ weeknight using various predictor variables.
+Once the significant variables were identified , 2 models were built to predict Average Hours of sleep/ weeknight. 
+Model 1 was based on Age and Hour of sleep/ weekend as predictor variables and the effect of Hour of sleep/ weekend was much more higher than age. From first model Hour of sleep/ weekend had more effect and impact on response variable Hours of sleep/ weeknight. This model was much significant which could predict 29.8% variance in Hours of sleep/ weeknight.
+
+Model 2 built upon the base of Model 1, adding additional significant variables such as trouble in falling asleep, having problems with sleep or not and wake up feeling refreshed or not to the model. The addition of these variables raised the variability that could be explained by the model to 35.5%. The model describes that variable like Hour of sleep/ weekend and wake up feeling refreshed are more effective in the Model 2.
+Among both models, Model 2 was most significant with 35.5% of variance found in response variable Hours of sleep/ weeknight.
+
+The 2 hypothesis tests set out at the start of the paper stated that the models would not be predictive with regard to hourwnit and that the null hypothesis would be true. The results show that the null hypothesis is false and that the models are both significant and predictive.
+
+As part of verifying the predicted results, the original data set was partitioned on 80% to a training dataset (n= 216) and 20% to a test dataset (n= 55). The models were built on the train dataset. As an additional validation Model 2 equation was used against the test dataset to produce a set of predicted hourwnit for each staff. A correlation test of predicted hourwnit variable vs. actual hourwnit variable yielded a significant positive association (r(53) = 0.777, p < .001).
+
+As part of expansion of this work in future, more models can be made using ordinal variables like education level, marital status etc. and more insights can be drawn from those to explain the response variable Hours of sleep/ weeknight.
+
+##References
+Teetor, P. (2011). R Cookbook. O'Reilly Media,Inc.  
+Field, A., Miles, J., & Field, Z. (2012). Discovering statistics using R. Sage publications.  
+George, D. (2011). SPSS for windows step by step: A simple study guide and reference, 17.0 update, 10/e. Pearson Education India.
+
+Ebook:  
+http://martinschweinberger.de/docs/materials/Field%20Miles%20Field%202012%20Discovering%20statistics%20with%20R.pdf
+
+WebSites:  
+https://rmarkdown.rstudio.com/authoring_quick_tour.html  
+http://www.r-tutor.com/elementary-statistics/numerical-measures
+
+
+##Appendix
+
+
+
+
+
